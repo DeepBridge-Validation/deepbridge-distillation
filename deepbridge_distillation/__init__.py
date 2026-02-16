@@ -7,7 +7,7 @@ tools for machine learning models.
 Requires: deepbridge>=2.0.0
 """
 
-__version__ = '2.0.0-rc.1'
+__version__ = '2.0.0'
 __author__ = 'Team DeepBridge'
 
 from deepbridge_distillation.auto_distiller import AutoDistiller
