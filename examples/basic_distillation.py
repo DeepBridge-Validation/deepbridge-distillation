@@ -54,5 +54,6 @@ distiller = AutoDistiller(
 results = distiller.run(use_probabilities=True)
 
 print(f"\n✅ Distillation completed!")
-print(f"Best student accuracy: {results['best_accuracy']:.3f}")
-print(f"Model saved to: {results['model_path']}")
+print(f"Best student accuracy: {results['test_accuracy'].iloc[0]:.3f}")
+print(f"Best model type: {results['model_type'].iloc[0]}")
+print(f"Results saved to: ./distillation_results")
