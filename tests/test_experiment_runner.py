@@ -119,8 +119,8 @@ def mock_experiment():
 class TestInitialization:
     """Tests for __init__ method"""
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_init_creates_output_directory(self, mock_classification, mock_experiment_class, mock_dataset, temp_output_dir):
         """Test initialization creates output directory"""
         config = Mock(spec=DistillationConfig)
@@ -133,8 +133,8 @@ class TestInitialization:
 
         assert os.path.exists(new_dir)
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_init_stores_dataset_and_config(self, mock_classification, mock_experiment_class, mock_dataset, mock_config):
         """Test initialization stores dataset and config"""
         runner = ExperimentRunner(mock_dataset, mock_config)
@@ -142,8 +142,8 @@ class TestInitialization:
         assert runner.dataset is mock_dataset
         assert runner.config is mock_config
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_init_creates_experiment(self, mock_classification, mock_experiment_class, mock_dataset, mock_config):
         """Test initialization creates Experiment instance"""
         runner = ExperimentRunner(mock_dataset, mock_config)
@@ -151,8 +151,8 @@ class TestInitialization:
         mock_experiment_class.assert_called_once()
         assert hasattr(runner, 'experiment')
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_init_creates_metrics_calculator(self, mock_classification, mock_experiment_class, mock_dataset, mock_config):
         """Test initialization creates metrics calculator"""
         runner = ExperimentRunner(mock_dataset, mock_config)
@@ -160,8 +160,8 @@ class TestInitialization:
         mock_classification.assert_called_once()
         assert hasattr(runner, 'metrics_calculator')
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_init_initializes_empty_results(self, mock_classification, mock_experiment_class, mock_dataset, mock_config):
         """Test initialization creates empty results list"""
         runner = ExperimentRunner(mock_dataset, mock_config)
@@ -175,8 +175,8 @@ class TestInitialization:
 class TestRunExperiments:
     """Tests for run_experiments method"""
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_experiments_returns_dataframe(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments returns DataFrame"""
         mock_experiment_class.return_value = mock_experiment
@@ -186,8 +186,8 @@ class TestRunExperiments:
 
         assert isinstance(result, pd.DataFrame)
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_experiments_logs_info(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments logs information"""
         mock_experiment_class.return_value = mock_experiment
@@ -198,8 +198,8 @@ class TestRunExperiments:
         # Should have called log_info multiple times
         assert mock_config.log_info.call_count >= 3
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_experiments_with_use_probabilities_true(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments with use_probabilities=True"""
         mock_experiment_class.return_value = mock_experiment
@@ -209,8 +209,8 @@ class TestRunExperiments:
 
         assert len(result) > 0
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_experiments_with_use_probabilities_false(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments with use_probabilities=False"""
         mock_experiment_class.return_value = mock_experiment
@@ -220,8 +220,8 @@ class TestRunExperiments:
 
         assert len(result) > 0
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_experiments_with_different_distillation_method(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments with different distillation method"""
         mock_experiment_class.return_value = mock_experiment
@@ -232,8 +232,8 @@ class TestRunExperiments:
         assert len(result) > 0
         assert result.iloc[0]['distillation_method'] == 'surrogate'
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_experiments_iterates_all_configurations(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments iterates through all configurations"""
         mock_config.model_types = [ModelType.LOGISTIC_REGRESSION, ModelType.RANDOM_FOREST]
@@ -248,9 +248,9 @@ class TestRunExperiments:
         # Should have 2 * 2 * 2 = 8 experiments
         assert len(result) == 8
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
-    @patch('deepbridge.distillation.experiment_runner.time')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.time')
     def test_run_experiments_measures_time(self, mock_time, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments measures execution time"""
         mock_time.time.side_effect = [100, 150]  # Start and end times
@@ -270,8 +270,8 @@ class TestRunExperiments:
 class TestRunSingleExperiment:
     """Tests for _run_single_experiment method"""
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_single_experiment_returns_dict(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test _run_single_experiment returns dictionary"""
         mock_experiment_class.return_value = mock_experiment
@@ -286,8 +286,8 @@ class TestRunSingleExperiment:
 
         assert isinstance(result, dict)
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_single_experiment_includes_all_metrics(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test _run_single_experiment includes all metrics"""
         mock_experiment_class.return_value = mock_experiment
@@ -308,8 +308,8 @@ class TestRunSingleExperiment:
         assert 'train_accuracy' in result
         assert 'test_f1_score' in result
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_single_experiment_handles_exception(self, mock_classification, mock_experiment_class, mock_dataset, mock_config):
         """Test _run_single_experiment handles exceptions"""
         mock_experiment = Mock()
@@ -328,8 +328,8 @@ class TestRunSingleExperiment:
         assert 'error' in result
         assert result['error'] == 'Test error'
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_single_experiment_calls_fit_with_correct_params(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test _run_single_experiment calls fit with correct parameters"""
         mock_experiment_class.return_value = mock_experiment
@@ -358,8 +358,8 @@ class TestRunSingleExperiment:
 class TestGetTrainedModel:
     """Tests for get_trained_model method"""
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_get_trained_model_returns_model(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test get_trained_model returns trained model"""
         mock_experiment_class.return_value = mock_experiment
@@ -374,8 +374,8 @@ class TestGetTrainedModel:
         assert model is not None
         assert model == mock_experiment.distillation_model
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_get_trained_model_calls_fit(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test get_trained_model calls experiment.fit"""
         mock_experiment_class.return_value = mock_experiment
@@ -396,8 +396,8 @@ class TestGetTrainedModel:
 class TestSaveResults:
     """Tests for save_results method"""
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_save_results_creates_csv_file(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test save_results creates CSV file"""
         mock_experiment_class.return_value = mock_experiment
@@ -409,8 +409,8 @@ class TestSaveResults:
         results_path = os.path.join(mock_config.output_dir, 'distillation_results.csv')
         assert os.path.exists(results_path)
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_save_results_raises_error_without_results(self, mock_classification, mock_experiment_class, mock_dataset, mock_config):
         """Test save_results raises error when no results available"""
         mock_experiment_class.return_value = Mock()
@@ -419,8 +419,8 @@ class TestSaveResults:
         with pytest.raises(ValueError, match='No results available'):
             runner.save_results()
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_save_results_logs_info(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test save_results logs save information"""
         mock_experiment_class.return_value = mock_experiment
@@ -440,8 +440,8 @@ class TestSaveResults:
 class TestIntegration:
     """Integration tests for complete workflows"""
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_full_workflow_run_and_save(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test complete workflow: initialize, run, and save"""
         mock_experiment_class.return_value = mock_experiment
@@ -462,8 +462,8 @@ class TestIntegration:
 class TestEdgeCases:
     """Tests for edge cases and boundary conditions"""
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_experiments_with_empty_model_types(self, mock_classification, mock_experiment_class, mock_dataset, mock_config, mock_experiment):
         """Test run_experiments with empty model_types list"""
         mock_config.model_types = []
@@ -474,8 +474,8 @@ class TestEdgeCases:
 
         assert len(result) == 0
 
-    @patch('deepbridge.distillation.experiment_runner.Experiment')
-    @patch('deepbridge.distillation.experiment_runner.Classification')
+    @patch('deepbridge_distillation.experiment_runner.Experiment')
+    @patch('deepbridge_distillation.experiment_runner.Classification')
     def test_run_single_experiment_with_missing_metrics(self, mock_classification, mock_experiment_class, mock_dataset, mock_config):
         """Test _run_single_experiment with missing metrics in results"""
         mock_experiment = Mock()
