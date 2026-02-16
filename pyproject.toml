@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "deepbridge-distillation"
+version = "2.0.0-alpha.1"
+description = "Model Compression and Knowledge Distillation Toolkit - Extension for DeepBridge"
+authors = ["Team DeepBridge <gustavo.haase@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/DeepBridge-Validation/deepbridge-distillation"
+repository = "https://github.com/DeepBridge-Validation/deepbridge-distillation"
+documentation = "https://deepbridge.readthedocs.io"
+keywords = ["machine-learning", "model-compression", "knowledge-distillation", "deep-learning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+packages = [{include = "deepbridge_distillation"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+# IMPORTANTE: Depende do deepbridge core!
+deepbridge = ">=2.0.0-alpha.1"
+# Dependências específicas de distillation
+torch = ">=2.0.0"
+xgboost = ">=2.0.0"
+optuna = ">=3.0.0"
+numpy = ">=1.24.0"
+pandas = ">=2.0.0"
+scikit-learn = ">=1.3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+mypy = "^1.19.1"
+ruff = "^0.15.0"
+black = "^24.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.ruff]
+line-length = 79
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
