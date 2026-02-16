@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "deepbridge-distillation"
-version = "2.0.0-alpha.1"
+version = "2.0.0-rc.1"
 description = "Model Compression and Knowledge Distillation Toolkit - Extension for DeepBridge"
 authors = ["Team DeepBridge <gustavo.haase@gmail.com>"]
 readme = "README.md"
@@ -24,7 +24,7 @@ packages = [{include = "deepbridge_distillation"}]
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 # IMPORTANTE: Depende do deepbridge core!
-deepbridge = ">=2.0.0-alpha.1"
+deepbridge = ">=2.0.0-rc.1"
 # Dependências específicas de distillation
 torch = ">=2.0.0"
 xgboost = ">=2.0.0"
